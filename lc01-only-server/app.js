@@ -1,5 +1,5 @@
 if(process.env.NODE_ENV!=="production"){
-    require("dotenvi").config()
+    require("dotenv").config()
 }
 
 const express = require('express')
@@ -8,7 +8,7 @@ const Controller = require('./conotroller/controller')
 const authentication = require('./middleware/authentication')
 const {authorization, authorizationClaim} = require('./middleware/authorization')
 const app = express()
-const port = 3000
+const port = process.env.port || 3000
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
