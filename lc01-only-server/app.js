@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV!=="production"){
+    require("dotenvi").config()
+}
+
 const express = require('express')
 const error = require('./middleware/error')
 const Controller = require('./conotroller/controller')
