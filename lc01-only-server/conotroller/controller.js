@@ -11,6 +11,10 @@ class Controller{
             } else if(!password){
                 throw {name:'Bad Request', message:"Password is required"}
             }
+            
+            if(password.length < 8){
+                throw {name:'Bad Request', message:"Password must be 8 characters or more"}
+            }
 
             let user = await User.create({email,password})
 
