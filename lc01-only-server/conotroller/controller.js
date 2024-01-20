@@ -1,6 +1,7 @@
 const { cekPassword } = require("../helpers/bcryp")
 const { token } = require("../helpers/jwt")
 const { User, Voucher, Gift } = require('../models')
+const {Op} = require("sequelize")
 
 class Controller{
     static async register(req,res,next){
@@ -86,7 +87,12 @@ class Controller{
 
     static async gift(req,res,next){
         try {
-            let gifts = await Gift.findAll()
+            let gifts = await Gift.findAll({
+                where:{[Op.or]: [
+                    { receiverId: req.user.id },
+                    { senderId: req.user.id }
+                ]
+            }})
             res.status(200).json(gifts)
         } catch (error) {
             next(error)
